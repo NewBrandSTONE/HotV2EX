@@ -10,7 +10,7 @@ import android.support.v4.view.ViewPager;
 import com.android.oz.hotv2ex.R;
 import com.android.oz.hotv2ex.ui.fragment.AllFragment;
 import com.android.oz.hotv2ex.ui.fragment.HotTopicFragment;
-import com.astuetz.PagerSlidingTabStrip;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class HomeActivity extends FragmentActivity {
 
-    private PagerSlidingTabStrip mTabStrip;
+    private SmartTabLayout mSmartLayout;
     private ViewPager mViewPager;
     private MyAdapter mAdapter;
 
@@ -35,13 +35,13 @@ public class HomeActivity extends FragmentActivity {
     }
 
     private void initView() {
-        mTabStrip = (PagerSlidingTabStrip) findViewById(R.id.home_strip);
+        mSmartLayout = (SmartTabLayout) findViewById(R.id.home_strip);
         mViewPager = (ViewPager) findViewById(R.id.home_tabs);
         mAdapter = new MyAdapter(getSupportFragmentManager());
 
         mViewPager.setAdapter(mAdapter);
 
-        mTabStrip.setViewPager(mViewPager);
+        mSmartLayout.setViewPager(mViewPager);
     }
 
     private class MyAdapter extends FragmentPagerAdapter {
