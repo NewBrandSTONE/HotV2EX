@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import com.android.oz.hotv2ex.R;
 import com.android.oz.hotv2ex.ui.fragment.AllFragment;
 import com.android.oz.hotv2ex.ui.fragment.HotTopicFragment;
+import com.android.oz.hotv2ex.ui.fragment.LatestTopicFragment;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.ArrayList;
@@ -46,13 +47,14 @@ public class HomeActivity extends FragmentActivity {
 
     private class MyAdapter extends FragmentPagerAdapter {
 
-        private final String[] TITLES = {"最热", "全部"};
+        private final String[] TITLES = {"最新话题", "最热话题", "全部"};
         private ArrayList<Fragment> mFragmentList;
 
 
         public MyAdapter(FragmentManager fm) {
             super(fm);
             mFragmentList = new ArrayList<>();
+            mFragmentList.add(new LatestTopicFragment());
             mFragmentList.add(new AllFragment());
             mFragmentList.add(new HotTopicFragment());
         }
