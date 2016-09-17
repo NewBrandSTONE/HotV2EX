@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +61,6 @@ public class LatestTopicFragment extends Fragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Log.v("Oz", "latestBeanListSize-->" + latestBeanList.size());
                                     mAdapter.setmLatestList((ArrayList<LatestBean>) latestBeanList);
                                     mAdapter.notifyDataSetChanged();
                                 }
@@ -78,7 +76,7 @@ public class LatestTopicFragment extends Fragment {
 
     private void initView() {
         recyclerview = (RecyclerView) getActivity().findViewById(R.id.recyclerview);
-        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerview.setLayoutManager(mLayoutManager);
         mDatas = new ArrayList<>();
         mAdapter = new LatestTopicAdapter(getContext(), mDatas);

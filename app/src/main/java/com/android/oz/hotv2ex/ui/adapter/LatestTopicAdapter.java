@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @date 16/9/17
  * @desc ${CURSOR}
  */
-public class LatestTopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class LatestTopicAdapter extends RecyclerView.Adapter<LatestTopicAdapter.MyViewHolder> {
 
     private Context mContext;
     private ArrayList<LatestBean> mLatestList;
@@ -39,10 +39,10 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      * @return
      */
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.latesttopic_item, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
-        return holder;
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.latesttopic_item, null, false);
+        //MyViewHolder holder = new MyViewHolder(view);
+        return new MyViewHolder(view);
     }
 
     /**
@@ -52,9 +52,10 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      * @param position
      */
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
         ((MyViewHolder) holder).tv_title.setText(mLatestList.get(position).getTitle());
     }
+
 
     @Override
     public int getItemCount() {
