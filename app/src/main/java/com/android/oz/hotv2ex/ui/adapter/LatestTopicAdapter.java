@@ -2,6 +2,7 @@ package com.android.oz.hotv2ex.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 
 import com.android.oz.hotv2ex.R;
 import com.android.oz.hotv2ex.bean.LatestBean;
+import com.android.oz.hotv2ex.bean.MemberBean;
 import com.android.oz.hotv2ex.util.TimeUtils;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
@@ -57,15 +60,19 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<LatestTopicAdapter.
         // 创建的时间
         long createdTime = mLatestList.get(position).getCreated();
 
+        // 用户信息
+        MemberBean userMember = mLatestList.get(position).getMember();
+        Log.v("Oz", "userMember->" + userMember.toString());
+
+
         // 回复数
         StringBuilder repliesSB = new StringBuilder("回复数：");
         repliesSB.append(mLatestList.get(position).getReplies());
 
         holder.tv_title.setText(mLatestList.get(position).getTitle());
-
-        holder.tv_post_time.setText(TimeUtils.buildFullTime(createdTime));
-
+        holder.tv_post_time.setText(TimeUtils.buildSimpleDate(createdTime));
         holder.tv_replies.setText(repliesSB.toString());
+        holder.iv_usericon.setImageURI("https:" + userMember.getAvatar_large());
     }
 
 
@@ -79,12 +86,14 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<LatestTopicAdapter.
         private TextView tv_title;
         private TextView tv_post_time;
         private TextView tv_replies;
+        private SimpleDraweeView iv_usericon;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
             tv_post_time = (TextView) itemView.findViewById(R.id.tv_post_time);
             tv_replies = (TextView) itemView.findViewById(R.id.tv_replies);
+            iv_usericon = (SimpleDraweeView) itemView.findViewById(R.id.iv_usericon);
         }
     }
 }

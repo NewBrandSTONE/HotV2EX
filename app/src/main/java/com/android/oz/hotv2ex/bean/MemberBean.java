@@ -62,4 +62,16 @@ public class MemberBean {
     public void setAvatar_large(String avatar_large) {
         this.avatar_large = avatar_large;
     }
+
+    @Override
+    public String toString() {
+        return "MemberBean{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", tagline='" + tagline + '\'' +
+                ", avatar_mini='" + avatar_mini + '\'' +
+                ", avatar_normal='" + avatar_normal + '\'' +
+                ", avatar_large='" + avatar_large + '\'' +
+                '}';
+    }
 }

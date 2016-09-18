@@ -1,5 +1,6 @@
 package com.android.oz.hotv2ex.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,6 +10,8 @@ import java.util.Date;
  * @desc ${CURSOR}
  */
 public class TimeUtils {
+
+    private static String TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     /**
      * 根据传入的时间来拼接成 yyyy-MM-dd hh:MM:ss 的格式
@@ -35,6 +38,16 @@ public class TimeUtils {
                 .append(":")
                 .append(calendar.get(Calendar.SECOND));
         return sb.toString();
+    }
+
+    public static String buildSimpleDate(long times) {
+        if (times > 0) {
+            SimpleDateFormat simple = new SimpleDateFormat(TIME_FORMAT);
+            Date date = new Date(times * 1000);
+            return simple.format(date);
+        } else {
+            return "";
+        }
     }
 
 }
