@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.android.oz.hotv2ex.R;
 import com.android.oz.hotv2ex.bean.LatestBean;
+import com.android.oz.hotv2ex.util.TimeUtils;
 
 import java.util.ArrayList;
 
@@ -53,7 +54,18 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<LatestTopicAdapter.
      */
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        ((MyViewHolder) holder).tv_title.setText(mLatestList.get(position).getTitle());
+        // 创建的时间
+        long createdTime = mLatestList.get(position).getCreated();
+
+        // 回复数
+        StringBuilder repliesSB = new StringBuilder("回复数：");
+        repliesSB.append(mLatestList.get(position).getReplies());
+
+        holder.tv_title.setText(mLatestList.get(position).getTitle());
+
+        holder.tv_post_time.setText(TimeUtils.buildFullTime(createdTime));
+
+        holder.tv_replies.setText(repliesSB.toString());
     }
 
 
@@ -65,10 +77,14 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<LatestTopicAdapter.
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tv_title;
+        private TextView tv_post_time;
+        private TextView tv_replies;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
+            tv_post_time = (TextView) itemView.findViewById(R.id.tv_post_time);
+            tv_replies = (TextView) itemView.findViewById(R.id.tv_replies);
         }
     }
 }
