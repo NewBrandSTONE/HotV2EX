@@ -15,4 +15,5 @@ import retrofit2.http.GET;
 public interface V2EXServiceInterface {
     @GET("topics/latest.json")
     Call<List<LatestBean>> getLatestTopics();
+
 }

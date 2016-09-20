@@ -1,11 +1,13 @@
 package com.android.oz.hotv2ex.bean;
 
+import java.io.Serializable;
+
 /**
  * @author O.z Young
  * @date 16/9/17
  * @desc ${CURSOR}
  */
-public class MemberBean {
+public class MemberBean implements Serializable{
 
 
     private long id;

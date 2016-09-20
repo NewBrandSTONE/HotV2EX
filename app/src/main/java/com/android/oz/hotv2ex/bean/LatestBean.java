@@ -1,11 +1,13 @@
 package com.android.oz.hotv2ex.bean;
 
+import java.io.Serializable;
+
 /**
  * @author O.z Young
  * @date 16/9/17
  * @desc ${CURSOR}
  */
-public class LatestBean {
+public class LatestBean implements Serializable {
     private long id;
     private String title;
     private String url;
@@ -104,5 +106,22 @@ public class LatestBean {
 
     public void setNode(NodeBean node) {
         this.node = node;
+    }
+
+    @Override
+    public String toString() {
+        return "LatestBean{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", content='" + content + '\'' +
+                ", content_rendered='" + content_rendered + '\'' +
+                ", replies=" + replies +
+                ", created=" + created +
+                ", last_modified=" + last_modified +
+                ", last_touched=" + last_touched +
+                ", member=" + member +
+                ", node=" + node +
+                '}';
     }
 }

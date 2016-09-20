@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.android.oz.hotv2ex.R;
 import com.android.oz.hotv2ex.bean.LatestBean;
 import com.android.oz.hotv2ex.bean.MemberBean;
+import com.android.oz.hotv2ex.listener.ItemClickListener;
 import com.android.oz.hotv2ex.util.TimeUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -25,6 +26,12 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<LatestTopicAdapter.
 
     private Context mContext;
     private ArrayList<LatestBean> mLatestList;
+
+    private ItemClickListener mListener;
+
+    public void setmListener(ItemClickListener mListener) {
+        this.mListener = mListener;
+    }
 
     public LatestTopicAdapter(Context context, ArrayList<LatestBean> list) {
         mContext = context;
@@ -46,7 +53,7 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<LatestTopicAdapter.
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.latesttopic_item, null, false);
         //MyViewHolder holder = new MyViewHolder(view);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, mListener);
     }
 
     /**
@@ -81,19 +88,36 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<LatestTopicAdapter.
         return mLatestList.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView tv_title;
         private TextView tv_post_time;
         private TextView tv_replies;
         private SimpleDraweeView iv_usericon;
+        private ItemClickListener mListener;
 
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(View itemView, ItemClickListener listener) {
             super(itemView);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
             tv_post_time = (TextView) itemView.findViewById(R.id.tv_post_time);
             tv_replies = (TextView) itemView.findViewById(R.id.tv_replies);
             iv_usericon = (SimpleDraweeView) itemView.findViewById(R.id.iv_usericon);
+
+            mListener = listener;
+            // 设置监听事件
+            itemView.setOnClickListener(this);
+        }
+
+        /**
+         * 点击事件监听
+         *
+         * @param v
+         */
+        @Override
+        public void onClick(View v) {
+            if (mListener != null) {
+                mListener.onItemClick(v, getAdapterPosition());
+            }
         }
     }
 }

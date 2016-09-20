@@ -53,7 +53,7 @@
             android:layout_marginRight="8dp"
             android:layout_toLeftOf="@id/iv_usericon"
             android:ellipsize="end"
-            android:lines="3"
+            android:lines="2"
             android:text="我是题目"
             android:textSize="15sp"
             android:textStyle="bold" />

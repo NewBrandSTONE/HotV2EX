@@ -1,5 +1,6 @@
 package com.android.oz.hotv2ex.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +12,14 @@ import android.view.ViewGroup;
 
 import com.android.oz.hotv2ex.R;
 import com.android.oz.hotv2ex.bean.LatestBean;
+import com.android.oz.hotv2ex.constant.IntentConstant;
+import com.android.oz.hotv2ex.listener.ItemClickListener;
 import com.android.oz.hotv2ex.service.V2ExServiceImpl;
+import com.android.oz.hotv2ex.ui.activity.TopicDetailActivity;
 import com.android.oz.hotv2ex.ui.adapter.LatestTopicAdapter;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +31,7 @@ import retrofit2.Response;
  * @date 16/9/16
  * @desc 最新主题的Fragment
  */
-public class LatestTopicFragment extends Fragment {
+public class LatestTopicFragment extends Fragment implements ItemClickListener {
 
     private RecyclerView recyclerview;
     private LinearLayoutManager mLayoutManager;
@@ -45,6 +50,11 @@ public class LatestTopicFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initView();
         initData();
+        initListener();
+    }
+
+    private void initListener() {
+        mAdapter.setmListener(this);
     }
 
     private void initData() {
@@ -57,6 +67,7 @@ public class LatestTopicFragment extends Fragment {
                     Response<List<LatestBean>> response = latestNews.execute();
                     if (response.isSuccessful()) {
                         final List<LatestBean> latestBeanList = response.body();
+                        mDatas = (ArrayList<LatestBean>) latestBeanList;
                         if (latestBeanList != null) {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
@@ -81,5 +92,14 @@ public class LatestTopicFragment extends Fragment {
         mDatas = new ArrayList<>();
         mAdapter = new LatestTopicAdapter(getContext(), mDatas);
         recyclerview.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        if (mDatas.size() != 0) {
+            Intent intent = new Intent(getContext(), TopicDetailActivity.class);
+            intent.putExtra(IntentConstant.TO_TOPIC_DETAIL, (Serializable) mDatas.get(position));
+            getActivity().startActivity(intent);
+        }
     }
 }

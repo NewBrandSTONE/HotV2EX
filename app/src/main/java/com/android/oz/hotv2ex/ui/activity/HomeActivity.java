@@ -35,13 +35,16 @@ public class HomeActivity extends FragmentActivity {
         initView();
     }
 
+    private void initListener() {
+
+    }
+
     private void initView() {
         mSmartLayout = (SmartTabLayout) findViewById(R.id.home_strip);
         mViewPager = (ViewPager) findViewById(R.id.home_tabs);
         mAdapter = new MyAdapter(getSupportFragmentManager());
 
         mViewPager.setAdapter(mAdapter);
-
         mSmartLayout.setViewPager(mViewPager);
     }
 
