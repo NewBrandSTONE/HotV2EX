@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/tools"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,61 +9,93 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:background="?attr/colorPrimary"
         android:orientation="vertical"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:titleTextColor="#fff"
         local:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"></android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="100dp"
+        android:background="?attr/colorPrimary">
 
         <TextView
             android:id="@+id/tv_topic_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#fff"
             android:textSize="14sp" />
 
         <RelativeLayout
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@id/tv_topic_title"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/sdv_usericon"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true" />
 
-            <TextView
-                android:id="@+id/tv_username"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/sdv_usericon" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_usertagline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@id/sdv_usericon" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="#fff">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/sdv_usericon"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        fresco:fitCenter="true"
+                        fresco:roundAsCircle="true" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/sdv_usericon">
+
+                        <TextView
+                            android:id="@+id/tv_username"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true" />
+
+                        <TextView
+                            android:id="@+id/tv_usertagline"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_username"
+                            android:layout_marginTop="12dp"
+                            android:ellipsize="end"
+                            android:lines="1" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
         </RelativeLayout>
 
     </RelativeLayout>
 
-    <!--
-    <WebView
-        android:id="@+id/wb_content_rendered"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
-        -->
-    <TextView
-        android:id="@+id/tv_content_rendered"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></WebView>
+    </ScrollView>
 </LinearLayout>
 

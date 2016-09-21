@@ -40,4 +40,6 @@ dependencies {
 
     // 引入fresco
     compile 'com.facebook.fresco:fresco:0.13.0'
+    // 防止在webview中图片过大
+    compile 'org.jsoup:jsoup:1.9.2'
 }
