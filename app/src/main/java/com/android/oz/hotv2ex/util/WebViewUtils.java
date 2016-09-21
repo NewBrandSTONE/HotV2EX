@@ -28,4 +28,18 @@ public class WebViewUtils {
         return newHtmlContent;
     }
 
+    /**
+     * 给WebView最后添加上创建时间的footer
+     *
+     * @param createTime
+     * @return
+     */
+    public static String createTimeFooter(long createTime) {
+        return "<div style='text-align:right;color:gray;margin-top:20px;'>" + TimeUtils.buildFullTime(createTime) + "</div>";
+    }
+
+    public static String webviewFormatHtmlContent(String contentRendered) {
+        return "<body width=100% style='word-wrap:break-word;' />" + WebViewUtils.changeImgWidth(contentRendered);
+    }
+
 }

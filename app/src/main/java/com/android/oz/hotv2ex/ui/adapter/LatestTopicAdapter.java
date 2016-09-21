@@ -2,7 +2,6 @@ package com.android.oz.hotv2ex.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import com.android.oz.hotv2ex.bean.LatestBean;
 import com.android.oz.hotv2ex.bean.MemberBean;
 import com.android.oz.hotv2ex.listener.ItemClickListener;
 import com.android.oz.hotv2ex.util.TimeUtils;
+import com.facebook.drawee.drawable.ScalingUtils;
+import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -69,8 +70,6 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<LatestTopicAdapter.
 
         // 用户信息
         MemberBean userMember = mLatestList.get(position).getMember();
-        Log.v("Oz", "userMember->" + userMember.toString());
-
 
         // 回复数
         StringBuilder repliesSB = new StringBuilder("回复数：");
@@ -79,6 +78,11 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<LatestTopicAdapter.
         holder.tv_title.setText(mLatestList.get(position).getTitle());
         holder.tv_post_time.setText(TimeUtils.buildSimpleDate(createdTime));
         holder.tv_replies.setText(repliesSB.toString());
+
+        // 设置圆角图片
+        RoundingParams roundingParams = RoundingParams.asCircle();
+        holder.iv_usericon.getHierarchy().setRoundingParams(roundingParams);
+        holder.iv_usericon.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         holder.iv_usericon.setImageURI("https:" + userMember.getAvatar_large());
     }
 

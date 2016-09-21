@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.android.oz.hotv2ex.R;
 import com.android.oz.hotv2ex.bean.LatestBean;
+import com.android.oz.hotv2ex.constant.HttpConstant;
 import com.android.oz.hotv2ex.constant.IntentConstant;
 import com.android.oz.hotv2ex.util.WebViewUtils;
 import com.facebook.drawee.drawable.ScalingUtils;
@@ -67,7 +68,11 @@ public class TopicDetailActivity extends Activity {
         // 隐藏滚动条
         mWebView.setVerticalScrollBarEnabled(false);
 
-        String htmlContent = WebViewUtils.changeImgWidth(mLatestBean.getContent_rendered());
+        // TODO: 16/9/21 这里可能需要优化,将来应该把时间的角标也添加到html中,不要分开创建
+        String htmlContent = WebViewUtils.webviewFormatHtmlContent(mLatestBean.getContent_rendered());
+        // 添加创建时间
+        String createTimeFooter = WebViewUtils.createTimeFooter(mLatestBean.getCreated());
+        htmlContent += createTimeFooter;
 
         mWebView.loadDataWithBaseURL(null, htmlContent, "text/html", "utf-8", null);
 
@@ -75,6 +80,6 @@ public class TopicDetailActivity extends Activity {
         RoundingParams roundingParams = RoundingParams.asCircle();
         mSdv_usericon.getHierarchy().setRoundingParams(roundingParams);
         mSdv_usericon.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
-        mSdv_usericon.setImageURI("https:" + mLatestBean.getMember().getAvatar_large());
+        mSdv_usericon.setImageURI(HttpConstant.HTTPS + mLatestBean.getMember().getAvatar_large());
     }
 }
