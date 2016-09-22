@@ -9,22 +9,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.oz.hotv2ex.R;
 import com.android.oz.hotv2ex.bean.LatestBean;
 import com.android.oz.hotv2ex.constant.IntentConstant;
+import com.android.oz.hotv2ex.http.LatestTopicHttpMethod;
 import com.android.oz.hotv2ex.listener.ItemClickListener;
 import com.android.oz.hotv2ex.service.V2ExServiceImpl;
 import com.android.oz.hotv2ex.ui.activity.TopicDetailActivity;
 import com.android.oz.hotv2ex.ui.adapter.LatestTopicAdapter;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Response;
+import rx.Subscriber;
 
 /**
  * @author O.z Young
@@ -49,8 +49,46 @@ public class LatestTopicFragment extends Fragment implements ItemClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        initData();
+        //initData();
+        initDataWithRxJava();
         initListener();
+    }
+
+    private void initDataWithRxJava() {
+        // TODO: 16/9/22 添加上ProgressSubscriber
+        LatestTopicHttpMethod.getInstance().getLatestTopic(new Subscriber<List<LatestBean>>() {
+            @Override
+            public void onCompleted() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "加载完成", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "加载失败!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onNext(final List<LatestBean> latestBeen) {
+                mDatas = (ArrayList<LatestBean>) latestBeen;
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.setmLatestList((ArrayList<LatestBean>) latestBeen);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
     }
 
     private void initListener() {
@@ -58,7 +96,7 @@ public class LatestTopicFragment extends Fragment implements ItemClickListener {
     }
 
     private void initData() {
-        service = new V2ExServiceImpl();
+        /*service = new V2ExServiceImpl();
         final Call<List<LatestBean>> latestNews = service.getLatestNews();
         new Thread(new Runnable() {
             @Override
@@ -82,7 +120,7 @@ public class LatestTopicFragment extends Fragment implements ItemClickListener {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        }).start();*/
     }
 
     private void initView() {
