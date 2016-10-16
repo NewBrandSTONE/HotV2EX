@@ -16,11 +16,9 @@ import com.android.oz.hotv2ex.bean.LatestBean;
 import com.android.oz.hotv2ex.constant.IntentConstant;
 import com.android.oz.hotv2ex.http.LatestTopicHttpMethod;
 import com.android.oz.hotv2ex.listener.ItemClickListener;
-import com.android.oz.hotv2ex.service.V2ExServiceImpl;
 import com.android.oz.hotv2ex.ui.activity.TopicDetailActivity;
 import com.android.oz.hotv2ex.ui.adapter.LatestTopicAdapter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +33,6 @@ public class LatestTopicFragment extends Fragment implements ItemClickListener {
 
     private RecyclerView recyclerview;
     private LinearLayoutManager mLayoutManager;
-    private V2ExServiceImpl service;
     private LatestTopicAdapter mAdapter;
     private ArrayList<LatestBean> mDatas;
 
@@ -49,7 +46,6 @@ public class LatestTopicFragment extends Fragment implements ItemClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        //initData();
         initDataWithRxJava();
         initListener();
     }
@@ -95,34 +91,6 @@ public class LatestTopicFragment extends Fragment implements ItemClickListener {
         mAdapter.setmListener(this);
     }
 
-    private void initData() {
-        /*service = new V2ExServiceImpl();
-        final Call<List<LatestBean>> latestNews = service.getLatestNews();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Response<List<LatestBean>> response = latestNews.execute();
-                    if (response.isSuccessful()) {
-                        final List<LatestBean> latestBeanList = response.body();
-                        mDatas = (ArrayList<LatestBean>) latestBeanList;
-                        if (latestBeanList != null) {
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mAdapter.setmLatestList((ArrayList<LatestBean>) latestBeanList);
-                                    mAdapter.notifyDataSetChanged();
-                                }
-                            });
-                        }
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();*/
-    }
-
     private void initView() {
         recyclerview = (RecyclerView) getActivity().findViewById(R.id.recyclerview);
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -136,7 +104,7 @@ public class LatestTopicFragment extends Fragment implements ItemClickListener {
     public void onItemClick(View view, int position) {
         if (mDatas.size() != 0) {
             Intent intent = new Intent(getContext(), TopicDetailActivity.class);
-            intent.putExtra(IntentConstant.TO_TOPIC_DETAIL, (Serializable) mDatas.get(position));
+            intent.putExtra(IntentConstant.TO_TOPIC_DETAIL, mDatas.get(position));
             getActivity().startActivity(intent);
         }
     }

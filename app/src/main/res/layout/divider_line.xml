@@ -7,5 +7,5 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#9f9e9e" />
+        android:background="#e7e7e7" />
 </LinearLayout>

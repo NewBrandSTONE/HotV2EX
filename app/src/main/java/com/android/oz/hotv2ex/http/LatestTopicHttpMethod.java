@@ -26,7 +26,7 @@ import rx.schedulers.Schedulers;
 public class LatestTopicHttpMethod {
 
     private Retrofit mRetrofit;
-    private IAPIService mMovieService;
+    private IAPIService mAPIService;
 
     // 将构造方法私有化
     private LatestTopicHttpMethod() {
@@ -41,7 +41,7 @@ public class LatestTopicHttpMethod {
                 .baseUrl(V2EX.API_BASE_URL)
                 .build();
 
-        mMovieService = mRetrofit.create(IAPIService.class);
+        mAPIService = mRetrofit.create(IAPIService.class);
     }
 
     // 在访问LatestTopicHttpMethod时创建单例
@@ -66,7 +66,7 @@ public class LatestTopicHttpMethod {
 //                .unsubscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe(subscriber);
-        //mMovieService.getLatestTopics()
+        //mAPIService.getLatestTopics()
                 /*.map(new Func1<List<LatestBean>, Object>() {
                     @Override
                     public Object call(List<LatestBean> latestBeen) {
@@ -77,7 +77,7 @@ public class LatestTopicHttpMethod {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((subscriber));*/
 
-        mMovieService.getLatestTopics()
+        mAPIService.getLatestTopics()
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -90,7 +90,7 @@ public class LatestTopicHttpMethod {
                 .subscribe(subscriber);
 
 
-       /* Observable<List<LatestBean>> observable = mMovieService.getLatestTopics().map(new Func1<List<LatestBean>, List<LatestBean>>() {
+       /* Observable<List<LatestBean>> observable = mAPIService.getLatestTopics().map(new Func1<List<LatestBean>, List<LatestBean>>() {
             @Override
             public List<LatestBean> call(List<LatestBean> latestBeen) {
                 return latestBeen;

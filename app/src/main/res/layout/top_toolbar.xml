@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#14a7e9"
+    android:padding="10dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        fresco:placeholderImage="@mipmap/user_gray"
+        fresco:placeholderImageScaleType="fitCenter"
+        fresco:roundWithOverlayColor="#14a7e9"
+        fresco:roundedCornerRadius="50dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="最新主题" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        fresco:placeholderImage="@mipmap/settings"
+        fresco:placeholderImageScaleType="fitCenter" />
+</RelativeLayout>

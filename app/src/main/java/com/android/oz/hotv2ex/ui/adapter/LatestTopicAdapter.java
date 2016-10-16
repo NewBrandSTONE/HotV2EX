@@ -71,13 +71,10 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<LatestTopicAdapter.
         // 用户信息
         MemberBean userMember = mLatestList.get(position).getMember();
 
-        // 回复数
-        StringBuilder repliesSB = new StringBuilder("回复数：");
-        repliesSB.append(mLatestList.get(position).getReplies());
-
         holder.tv_title.setText(mLatestList.get(position).getTitle());
         holder.tv_post_time.setText(TimeUtils.buildSimpleDate(createdTime));
-        holder.tv_replies.setText(repliesSB.toString());
+        holder.tv_replies.setText(mLatestList.get(position).getReplies() + "");
+        holder.tv_user_name.setText(userMember.getUsername());
 
         // 设置圆角图片
         RoundingParams roundingParams = RoundingParams.asCircle();
@@ -99,6 +96,7 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<LatestTopicAdapter.
         private TextView tv_replies;
         private SimpleDraweeView iv_usericon;
         private ItemClickListener mListener;
+        private TextView tv_user_name;
 
         public MyViewHolder(View itemView, ItemClickListener listener) {
             super(itemView);
@@ -106,6 +104,7 @@ public class LatestTopicAdapter extends RecyclerView.Adapter<LatestTopicAdapter.
             tv_post_time = (TextView) itemView.findViewById(R.id.tv_post_time);
             tv_replies = (TextView) itemView.findViewById(R.id.tv_replies);
             iv_usericon = (SimpleDraweeView) itemView.findViewById(R.id.iv_usericon);
+            tv_user_name = (TextView) itemView.findViewById(R.id.user_name);
 
             mListener = listener;
             // 设置监听事件
